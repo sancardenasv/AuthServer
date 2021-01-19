@@ -9,6 +9,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -16,6 +17,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 @Configuration
+@EnableAuthorizationServer
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
     private final AuthenticationManager authenticationManager;
@@ -27,10 +29,6 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     private int refreshTokenValidity;
     @Value("${config.oauth2.storepass}")
     private String storepass;
-    @Value("${config.oauth2.privateKey}")
-    private String privateKey;
-    @Value("${config.oauth2.publicKey}")
-    private String publicKey;
 
     public OAuth2Config(@Qualifier("authenticationManagerBean") AuthenticationManager authenticationManager,
                         CustomClientDetailsService customClientDetailsService) {
@@ -61,12 +59,10 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
     @Bean
     public JwtAccessTokenConverter tokenEnhancer() {
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"),
-                storepass.toCharArray());
         JwtAccessTokenConverter converter = new CustomTokenEnhancer();
-        converter.setKeyPair(keyStoreKeyFactory.getKeyPair("jwt"));
-        converter.setSigningKey(privateKey);
-        converter.setVerifierKey(publicKey);
+        converter.setKeyPair(
+                new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), storepass.toCharArray())
+                        .getKeyPair("jwt"));
         return converter;
     }
 }
