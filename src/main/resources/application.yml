@@ -1,0 +1,62 @@
+spring:
+  application:
+    name: authserver
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:8084/AUTH_SERVICE
+    username: root
+    password: test
+logging:
+  config: /config/logback-spring.xml
+  level:
+    org.springframework.security: DEBUG
+config:
+  oauth2:
+    default-success-url: "http://localhost:5021/login"
+    access-token-validity: 3600
+    refresh-token-validity: 18000
+    storepass: "=xU2Sk%zv&CXv4Mp"
+    privateKey: -----BEGIN RSA PRIVATE KEY-----
+      MIIEogIBAAKCAQEAwwdk9hVrT0ckQdZkixP+XNxwfcyx4kcjc3sblP6kUYAWZvI3
+      6y0NhEZbnqDXx3Bj8uDabstzMOJfdhS5UeQJfNBcnQYpXsreI7+e108aHQotnOfm
+      LgqQ8SYR4KeKON9vYrYzvKP9fBLATDsDmLucesfwJ2agETNXCOMg2bllAalFDmHb
+      HW58Za2VdT8JrbTli4MBye+TfFU2u2Wiqw2yS9GoHolq3jAuV/UNIp/ms0qAXjDQ
+      VAjh4MV7SigNLpV5k02leDACEE1SDx/GapKrzhX8CuOM+ZVA/7/4EeNHe6J9oYq7
+      O2ShandXrl6MpnQzfkn0SsspdM3egow5QFP+UwIDAQABAoIBAFazn9eimA0rdFvs
+      gtAteEQyH7RdXqtYstLw5MctGUG+LrdfcSqU4dBvMuXnXWYledmMyq68tZ4C1St6
+      dRSJywn422NXTOb+SxkbY/MWEGbekn6RvYu0WNFL+mCkOtejxTHeDEwNn3AcKe75
+      wVSR+zO+VO4/OmPLLiMeTglc2SGOJx+0qesnhqnmUu2fnpDSNcbdrCvFq9QmwacE
+      3O0pgXdfDnxMqrCOlSPq+BBc8j1JlmoEYC6u8BcNzO3s330LbYzV6BSdEb51fTgt
+      CwgMQtF96wgYl+Mpj3fcvTbeSJSr8ktrMocHwZSPyWl0CS0nmyxTTOQvSic33UW1
+      vR+uJkkCgYEA4Hs7ZVz2tC1DiVC9dMZhGiVeZvkMoQr2ne08MuYJzakQsiB2lCtm
+      ffiz09cSI+6+0q449MDMj0tKmI5oNBnOTsat/+e20SW1Mlv/TQ0XoSRbCQ2Ht1gB
+      SFrLQGeD5zgq9xAwEu3vezVq36BzcKYOY/dfkvW7nZxzaz7scvwKFnUCgYEA3mmF
+      UwUJBw8ZcJ5oZblbfIUw8OCrNTSjvbPb2cWb4S8FDxfINqWhvRK/iFQTpaEKR5Sv
+      +NxSfA6fe3vGenDGegJJ5fLWyJ9jEFoxzLJ/fSfZDDmTwMqSnxG3NcIDXeH7mTx8
+      70wF3Ey1QKk4FX9rfiU2VtPyl1ep1WgG+bxG+KcCgYAQY879YqE8nIVu1C9RBF74
+      mrvextZON8+zzit0B+m1U1+9sbMWtGiCUBNJJ03Sw8648TGFZUJKQBQNOXCQRUYT
+      6Fux8IgfkyI8sAze4lLUWCQxcAR1tX46ey6V4Dj4O9ifO1ZXO3odw9OuyjdDhUxN
+      rjUTNM/i/RZMQUbgSliuNQKBgH3xdNzhEg6cP0SlfupzftnRNjiAkJKNX1dR3OHB
+      Y5atIIk+Z1KCkkbVsf3J1mJJAeAs00TxxgeX5Dlxip/U8p8uYphC3ds3XkppOJ/4
+      R/cgNGkWxZM7YrGOv5dCaNOl3uoT9Y8wFnV8PnsCF88cm0sQWWfrlwiaTIKa6LBM
+      LEgrAoGAPKDV/YHgFw9Y3H1MN18IJhWqwFOLTUtIXwsF2byXV/iEiu0a71RK2vQJ
+      6f7/YSLNcyddP/AWd1tLeDNqlu2j/+E+7fRIePXUhyup8KUyTXLCPsBCJ5yYc/uL
+      TRU5fMhFSVBqQE/nLKLyutRYtQHh1QoIdCexoyzmpWlMeiL97Ko=
+      -----END RSA PRIVATE KEY-----
+    publicKey: -----BEGIN PUBLIC KEY-----
+      MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwwdk9hVrT0ckQdZkixP+
+      XNxwfcyx4kcjc3sblP6kUYAWZvI36y0NhEZbnqDXx3Bj8uDabstzMOJfdhS5UeQJ
+      fNBcnQYpXsreI7+e108aHQotnOfmLgqQ8SYR4KeKON9vYrYzvKP9fBLATDsDmLuc
+      esfwJ2agETNXCOMg2bllAalFDmHbHW58Za2VdT8JrbTli4MBye+TfFU2u2Wiqw2y
+      S9GoHolq3jAuV/UNIp/ms0qAXjDQVAjh4MV7SigNLpV5k02leDACEE1SDx/GapKr
+      zhX8CuOM+ZVA/7/4EeNHe6J9oYq7O2ShandXrl6MpnQzfkn0SsspdM3egow5QFP+
+      UwIDAQAB
+      -----END PUBLIC KEY-----
