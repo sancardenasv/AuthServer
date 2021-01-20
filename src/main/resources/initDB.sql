@@ -1,10 +1,8 @@
+-- Database creation
 CREATE DATABASE AUTH_SERVICE;
 USE AUTH_SERVICE;
 
-CREATE TABLE permission (
-id INT PRIMARY KEY AUTO_INCREMENT,
-name VARCHAR(20));
-
+-- Table creation
 CREATE TABLE client (
 id INT PRIMARY KEY AUTO_INCREMENT,
 clientId VARCHAR(20),
@@ -23,6 +21,10 @@ password VARCHAR(1000),
 clientId INT, FOREIGN KEY(clientId) REFERENCES client (id),
 status BOOLEAN);
 
+CREATE TABLE permission (
+id INT PRIMARY KEY AUTO_INCREMENT,
+name VARCHAR(20));
+
 CREATE TABLE role (
 id INT PRIMARY KEY AUTO_INCREMENT,
 name VARCHAR(20));
@@ -37,16 +39,20 @@ id INT PRIMARY KEY AUTO_INCREMENT,
 userId INT, FOREIGN KEY(userId) REFERENCES user(id),
 roleId INT, FOREIGN KEY(roleId) REFERENCES role(id));
 
+-- Data population
+INSERT INTO permission (id, name)
+VALUES (1, 'CREATE_NOTE'), (2, 'EDIT_NOTE'), (3, 'DELETE_NOTE'), (4, 'VIEW_ALL_NOTE'), (5, 'VIEW_NOTE');
 
-INSERT INTO permission (id, name) VALUES (1, 'CREATE_NOTE'), (2, 'EDIT_NOTE'), (3, 'DELETE_NOTE'), (4, 'VIEW_ALL_NOTE'), (5, 'VIEW_NOTE');
-
-INSERT INTO role (id, name) VALUES (1, 'ADMINISTRATOR'), (2, 'AUDITOR');
+INSERT INTO role (id, name)
+VALUES (1, 'ADMINISTRATOR'), (2, 'AUDITOR');
 
 INSERT INTO client (id, clientId, authorities, authorizedGrantTypes, autoApproveScopes, redirectUri, scopes, secret)
 VALUES (1, "client", "", "password,refresh_token", "", "http://localhost:8081/login", "read,write", "$2a$10$4k/PgfTdny5pIVvri.HAqO8Qo0pCyIOwqSij34ys/hjIWxhEy02X6");
 
-INSERT INTO user (id, name, email, password, clientId, status) VALUES (1, 'John', 'john@gmail.com','$2a$10$jbIi/RIYNm5xAW9M7IaE5.WPw6BZgD8wcpkZUg0jm8RHPtdfDcMgm', 1, 1);
-INSERT INTO user (id, name, email, password, clientId, status) VALUES (2, 'Mike', 'mike@gmail.com','$2a$10$jbIi/RIYNm5xAW9M7IaE5.WPw6BZgD8wcpkZUg0jm8RHPtdfDcMgm', 1, 1);
+INSERT INTO user (id, name, email, password, clientId, status)
+VALUES (1, 'Admin', 'admin@mail.com','$2a$10$jbIi/RIYNm5xAW9M7IaE5.WPw6BZgD8wcpkZUg0jm8RHPtdfDcMgm', 1, 1);
+INSERT INTO user (id, name, email, password, clientId, status)
+VALUES (2, 'Audit', 'audit@mail.com','$2a$10$jbIi/RIYNm5xAW9M7IaE5.WPw6BZgD8wcpkZUg0jm8RHPtdfDcMgm', 1, 1);
 
 INSERT INTO permissionToRole (permissionId, roleId) VALUES (1, 1);
 INSERT INTO permissionToRole (permissionId, roleId) VALUES (2, 1);
@@ -60,11 +66,12 @@ INSERT INTO permissionToRole (permissionId, roleId) VALUES (5, 2);
 INSERT INTO userToRole (userId, roleId) VALUES (1, 1);
 INSERT INTO userToRole (userId, roleId) VALUES (2, 2);
 
-SELECT * FROM user WHERE email ='john@gmail.com';
+-- Data select
+SELECT * FROM user WHERE email ='admin@mail.com';
 
 SELECT DISTINCT P.name FROM permission P
 INNER JOIN permissionToRole P_R ON P.id = P_R.permissionId
 INNER JOIN role R ON R.id = P_R.roleId
 INNER JOIN userToRole U_R ON U_R.roleId = R.id
 INNER JOIN user U ON U.id = U_R.userId
-WHERE U.email = 'john@gmail.com';
+WHERE U.email = 'admin@mail.com';
