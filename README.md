@@ -5,7 +5,7 @@ Project on how to set up OAuth2 authorization server with JWT token using Spring
 
 ## Related projects
 * Resource server: Pending
-* Angular front-end: Pending
+* [Spring Boot Angular](https://github.com/sancardenasv/spring-boot-angular)
 ---
 
 ## Repositories
@@ -29,7 +29,7 @@ these roles using `permissionToRole` table; currently are related as:
 Users are assigned to a Role using `userToRole` table; currently admin and audit users are
 set to `ADMINISTRATOR` and `AUDITOR` roles respectively.
 
-##Installing
+## Installing
 Just clone or download the repo and import it as an existing maven project.
 Project uses Lombok, you should install the plugin/library and enable annotation processing;
 you can also remove the associated annotations from the code and write the getters, setters, constructors, etc.
